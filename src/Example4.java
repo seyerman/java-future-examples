@@ -13,12 +13,9 @@ public class Example4 {
             }
         });
 
-        /*
-        cf1.get();
-
         CompletableFuture<String> cf2 = CompletableFuture.supplyAsync(()->{
             try {
-                Thread.sleep(200);
+                Thread.sleep(100);
                 Utils.writeLog("Our second completable future with logic inside");
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -26,7 +23,8 @@ public class Example4 {
             return "Value returned of the first supply async";
         });
 
+        cf1.get();
+
         Utils.writeLog(cf2.get());
-         */
     }
 }

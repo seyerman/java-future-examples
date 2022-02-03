@@ -3,7 +3,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.RecursiveTask;
 
 public class Example2_2 {
-    //taken of https://www.baeldung.com/java-future
     public static class SummationCalculator extends RecursiveTask<Long> {
         private boolean debug;
         private int start;
@@ -34,13 +33,6 @@ public class Example2_2 {
             return sc1.join() + sc2.join();
         }
     }
-    public long sum(int n){
-        long s = 0;
-        for(int i=1;i<=n;i++){
-            s += i;
-        }
-        return s;
-    }
     public static void main(String[] args) throws Exception{
         int n = 100000000;
         ForkJoinPool forkJoinPool = new ForkJoinPool();
@@ -52,7 +44,5 @@ public class Example2_2 {
         long endTime = System.currentTimeMillis();
 
         Utils.writeLog("The sum of the first "+n+" numbers is "+sum+", and last "+(endTime-startTime)+" ms");
-
-        Utils.writeLog("The sum without additional threads ");
     }
 }

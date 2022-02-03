@@ -5,16 +5,16 @@ import java.util.concurrent.RecursiveTask;
 
 public class Example2_1 {
     //based on https://www.baeldung.com/java-future
-    public static class SummationCalculator extends RecursiveTask<Integer> {
+    public static class SummationCalculator extends RecursiveTask<Long> {
         private Integer n;
         public SummationCalculator(Integer n) {
             this.n = n;
         }
         @Override
-        protected Integer compute() {
+        protected Long compute() {
             Utils.writeLog("Counting by "+n);
             if (n <= 1) {
-                return 1;
+                return (long)1;
             }
             SummationCalculator sc = new SummationCalculator(n-1);
             sc.fork();
@@ -22,11 +22,15 @@ public class Example2_1 {
         }
     }
     public static void main(String[] args) throws Exception{
-        int n = 10;
+        int n = 1000;
         ForkJoinPool forkJoinPool = new ForkJoinPool();
         SummationCalculator calculator = new SummationCalculator(n);
-        Future<Integer> fsum = forkJoinPool.submit(calculator);
 
-        Utils.writeLog("The sum of the first "+n+" numbers is "+fsum.get());
+        long startTime = System.currentTimeMillis();
+        Future<Long> fsum = forkJoinPool.submit(calculator);
+        long sum = fsum.get();
+        long endTime = System.currentTimeMillis();
+
+        Utils.writeLog("The sum of the first "+n+" numbers is "+sum+", and last "+(endTime-startTime)+" ms");
     }
 }
